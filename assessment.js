@@ -12,24 +12,38 @@ assessmentButton.addEventListener(
       // 名前が空の時は処理を終了する
       return;
     }
-    
+
     // 診断結果表示エリアの作成
     resultDivision.innerText = '';
-    const header = document.createElement('h3');
-    header.innerText = '診断結果';
-    resultDivision.appendChild(header);
+
+    // headerDivisionの作成
+    const headerDivision = document.createElement('div');
+    headerDivision.setAttribute('class', 'card-header text-bg-primary');
+    headerDivision.innerText = '診断結果';
+
+    // bodyDivisionの作成
+    const bodyDivision = document.createElement('div');
+    bodyDivision.setAttribute('class', 'card-body');
 
     const paragraph = document.createElement('p');
+    paragraph.setAttribute('class', 'card-text');
     const result = assessment(userName);
     paragraph.innerText = result;
-    resultDivision.appendChild(paragraph);
+    bodyDivision.appendChild(paragraph);
+
+    // resultDivisionにBootstrapのスタイルを適用する
+    resultDivision.setAttribute('class', 'card');
+
+    // headerDivisionとbodyDivisionをresultDivisionに差し込む
+    resultDivision.appendChild(headerDivision);
+    resultDivision.appendChild(bodyDivision);
 
     // ツイートエリアの作成
     tweetDivision.innerText = '';
     const anchor = document.createElement('a');
     const hrefValue =
       'https://twitter.com/intent/tweet?button_hashtag=' +
-      encodeURIComponent('あなたのいいところ') + 
+      encodeURIComponent('あなたのいいところ') +
       '&ref_src=twsrc%5Etfw';
 
     anchor.setAttribute('href', hrefValue);
@@ -40,7 +54,7 @@ assessmentButton.addEventListener(
     tweetDivision.appendChild(anchor);
 
     const script = document.createElement('script');
-    script.setAttribute('src','https://platform.twitter.com/widgets.js');
+    script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
     tweetDivision.appendChild(script);
   }
 );
@@ -127,22 +141,22 @@ function test() {
 
   console.log('太郎');
   console.assert(
-    assessment('太郎') === assessment('太郎'), 
+    assessment('太郎') === assessment('太郎'),
     '入力が同じ名前なら同じ診断結果を出力する処理が正しくありません。'
   );
 
   console.log('次郎');
   console.assert(
-    assessment('次郎') === assessment('次郎'), 
+    assessment('次郎') === assessment('次郎'),
     '入力が同じ名前なら同じ診断結果を出力する処理が正しくありません。'
   );
 
   console.log('花子');
   console.assert(
     assessment('花子') === assessment('花子'),
-     '入力が同じ名前なら同じ診断結果を出力する処理が正しくありません。'
+    '入力が同じ名前なら同じ診断結果を出力する処理が正しくありません。'
   );
- 
+
   console.log('同じ名前なら、同じ結果を出力することのテスト終了');
 }
 
